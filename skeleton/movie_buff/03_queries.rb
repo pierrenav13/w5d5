@@ -11,6 +11,13 @@ end
 
 def golden_age
   # Find the decade with the highest average movie score.
+  Movie
+    .select(:yr)
+    .where('yr % ? = 0', '10')
+    .group(:yr)
+    .order('AVG(score) DESC')
+    .limit(1)
+    .pluck(:yr).first
 
 end
 
